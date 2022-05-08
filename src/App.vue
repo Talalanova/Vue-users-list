@@ -9,6 +9,7 @@
 
 <script>
 import Sidemenu from '@/components/Sidemenu.vue'
+
 export default {
   name: "",
   components: {
@@ -22,14 +23,18 @@ export default {
 
 <style lang="sass">
 
-html, #app 
+html
+  height: 100%
+
+#app 
   height: 100%
 
 body 
   margin: 0 auto
   min-width: 320px
-  max-width: 1920px
+  max-width: 1660px
   height: 100%
+  font-family: "Tahoma", "Arial", sans-serif
 
 .wrapper 
   display: grid
@@ -37,4 +42,6 @@ body
   width: 100%
   height: 100%
 
+.main
+  padding: 60px 40px
 </style>
