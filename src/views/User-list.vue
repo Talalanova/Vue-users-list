@@ -2,7 +2,7 @@
   <section class="users">
     <div class="users__top-bar">
       <h1>Список пользователей</h1>
-      <Sorting :arr="users"></Sorting>
+      <Sorting :arr="users" :city="'city'" :company="'company'"></Sorting>
     </div>    
     <Preloader v-if="!usersDownloaded"></Preloader>
     <ul class="users__list list-clean" v-for="user in users" :key="user.index">

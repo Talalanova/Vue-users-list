@@ -11,6 +11,8 @@ export default {
     name: 'Sorting',
     props: {
         arr: Array,
+        city: String,
+        company: String
     },
     data() {
         return {
@@ -19,8 +21,7 @@ export default {
     },
     methods: {
         sort(array,parameter) {
-            console.log(parameter)
-            array.sort((a,b) => (a > b) ? 1 : -1)
+            array.sort((a,b) => (a[parameter] > b[parameter]) ? 1 : -1)
         }
     }
 }
