@@ -14,11 +14,6 @@ export default {
         city: String,
         company: String
     },
-    data() {
-        return {
-            
-        }
-    },
     methods: {
         sort(array,parameter) {
             array.sort((a,b) => (a[parameter] > b[parameter]) ? 1 : -1)

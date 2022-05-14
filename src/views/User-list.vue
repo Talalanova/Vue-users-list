@@ -5,6 +5,7 @@
       <Sorting :arr="users" :city="'city'" :company="'company'"></Sorting>
     </div>    
     <Preloader v-if="!usersDownloaded"></Preloader>
+    <Error v-if="error"></Error>
     <ul class="users__list list-clean" v-for="user in users" :key="user.index">
       <li class="users__item card">
         <div class="card__text">
@@ -18,7 +19,7 @@
             <span class="card__field">Компания:</span><span>{{ user.company }}</span>
           </p>
         </div>
-        <router-link class="card__link" to="/edit-user">Подробнее</router-link>
+        <router-link class="card__link" :to="'/edit-user/' + user.id">Подробнее</router-link>
       </li>
     </ul>
   </section>
@@ -27,17 +28,20 @@
 <script>
 import Preloader from '@/components/Preloader.vue'
 import Sorting from '@/components/Sorting.vue'
+import Error from '@/components/Error.vue'
 
 export default {
   name: 'Users',
   components: {
     Preloader,
     Sorting,
+    Error
   },
   data() {
     return {
       users: [],
-      usersDownloaded: false
+      usersDownloaded: false,
+      error: false
     }
   },
   methods: {
@@ -47,6 +51,7 @@ export default {
           if (response.ok) {
             return response.json()
           }
+          throw new Error('Network response was not ok');
         })
         .then((json) => {
           console.log(json)
@@ -54,11 +59,15 @@ export default {
             return {
               name : item.name,
               city: item.address.city,
-              company: item.company.name
+              company: item.company.name,
+              id: item.id
             }
           })
           this.usersDownloaded = true
         })
+        .catch(() => {
+          this.error = true
+        });
     }
   },
   mounted() {

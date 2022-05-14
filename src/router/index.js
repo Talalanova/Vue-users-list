@@ -8,7 +8,7 @@ const routes = [
     component: Users
   },
   {
-    path: '/edit-user',
+    path: '/edit-user/:id',
     name: 'Edit-user',
     component: () => import('../views/Edit-user.vue')
   }
