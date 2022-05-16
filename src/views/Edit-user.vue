@@ -25,7 +25,7 @@
         <label for="comment">Comment</label>
         <textarea id="comment"></textarea>
       </fieldset>
-      <button type="submit" class="current-button">Отправить</button>
+      <button disabled type="submit" class="current-button ">Отправить</button>
     </form>
   </div>
 </template>
@@ -38,7 +38,36 @@ export default {
 
 <style lang="sass">
 .edit-user
-  form
+  .edit-user__top-bar
     display: flex
-    flex-direction: column
+    justify-content: space-between
+    button
+      font-size: 19px
+  form
+    padding: 30px 0
+    fieldset
+      border: 2px solid $border-form
+      border-radius: 10px
+      display: flex
+      flex-direction: column
+      padding: 20px
+      label
+        font-size: 18px
+        text-align: left
+        line-height: 19px
+        font-weight: 400
+        margin: 15px 0
+      input,textarea
+        border: 2px solid $border-form
+        padding: 10px 
+        border-radius: 10px
+      input
+        max-width: 50%
+    button
+      margin-top: 30px
+      font-size: 18px
+      &:disabled
+        background-color: $disabled-button
+        color: $basic-white
+        border-color: $disabled-button
 </style>
