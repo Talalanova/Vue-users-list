@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     loadUsers() {
-      fetch('https://jsonplaceholder.typicode.com/users')
+      fetch('https://jsonplaceholder.typicode.com/users?offset=0&limit=5')
         .then((response) => {
           if (response.ok) {
             return response.json()

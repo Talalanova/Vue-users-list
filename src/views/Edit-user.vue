@@ -2,37 +2,63 @@
   <div class="edit-user">
     <div class="edit-user__top-bar">
       <h1>Профиль пользователя</h1>
-      <button class="current-button">Редактировать</button>
+      <button class="current-button" @click="formDisabled = false">Редактировать</button>
     </div>    
     <form>
-      <fieldset>
+      <fieldset :disabled="formDisabled">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="" />
+        <input type="text" id="name" name="name" placeholder="" :value="user.name"/>
         <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="" />
+        <input type="text" id="username" name="username" placeholder="" :value="user.username"/>
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="" />
+        <input type="email" id="email" name="email" placeholder="" :value="user.email"/>
         <label for="street">Street</label>
-        <input type="text" id="street" name="street" placeholder="" />
+        <input type="text" id="street" name="street" placeholder="" :value="user.address.street"/>
         <label for="city">City</label>
-        <input type="text" id="city" name="city" placeholder="" />
+        <input type="text" id="city" name="city" placeholder="" :value="user.address.city" />
         <label for="code">Zip code</label>
-        <input type="number" id="code" name="code" placeholder="" />
+        <input type="text" id="code" name="code" placeholder="" :value="user.address.zipcode"/>
         <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" placeholder="" />
+        <input type="tel" id="phone" name="phone" placeholder="" :value="user.phone"/>
         <label for="website">Website</label>
-        <input type="text" id="website" name="website" placeholder="" />
+        <input type="text" id="website" name="website" placeholder="" :value="user.website"/>
         <label for="comment">Comment</label>
         <textarea id="comment"></textarea>
       </fieldset>
-      <button disabled type="submit" class="current-button ">Отправить</button>
+      <button :disabled="formDisabled" type="button" class="current-button ">Отправить</button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  
+  data() {
+    return {
+      user: {},
+      formDisabled: true,
+    }
+  },
+  methods: {
+    loadUser() {
+      fetch('https://jsonplaceholder.typicode.com/users?id=' + this.$route.params.id)
+        .then((response) => {
+          if (response.ok) {
+            return response.json()
+          }
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {
+          this.user = json[0]
+          console.log(this.user)
+        })
+        .catch(() => {
+          this.error = true
+        });
+    }
+  },
+  beforeMount() {
+    this.loadUser();
+  }
 }
 </script>
 

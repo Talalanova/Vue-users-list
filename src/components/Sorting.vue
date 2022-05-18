@@ -1,6 +1,6 @@
 <template>
     <div class="sorting">
-        <p>Сортировка</p>
+        <!-- <p>Сортировка</p> -->
         <button @click="sort(arr,city)" class="current-button">По городу</button>
         <button @click="sort(arr,company)" class="current-button">По компании</button>
     </div>
@@ -28,17 +28,17 @@ export default {
     grid-template-columns: 1fr 1fr
     text-align: center
     column-gap: 5px
-    p
-        grid-column: 1 / -1
-        position: relative
-        padding-left: 25px
-        margin-bottom: 12px
-        &::before
-            position: absolute
-            width: 25px
-            height: 20px
-            content: ""
-            background-image: url('~@/assets/sorting.svg')
-            background-repeat: no-repeat
-            left: 45px
+    // p
+    //     grid-column: 1 / -1
+    //     position: relative
+    //     padding-left: 25px
+    //     margin-bottom: 12px
+        // &::before
+        //     position: absolute
+        //     width: 25px
+        //     height: 20px
+        //     content: ""
+        //     background-image: url('~@/assets/sorting.svg')
+        //     background-repeat: no-repeat
+        //     left: 45px
 </style>
