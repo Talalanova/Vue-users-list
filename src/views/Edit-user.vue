@@ -25,7 +25,7 @@
         <label for="comment">Comment</label>
         <textarea id="comment"></textarea>
       </fieldset>
-      <button :disabled="formDisabled" type="button" class="current-button ">Отправить</button>
+      <button :disabled="formDisabled" type="button" class="current-button" @click="saveChanges()">Отправить</button>
     </form>
   </div>
 </template>
@@ -54,6 +54,9 @@ export default {
         .catch(() => {
           this.error = true
         });
+    },
+    saveChanges() {
+      
     }
   },
   beforeMount() {
@@ -71,14 +74,16 @@ export default {
       font-size: 19px
   form
     padding: 30px 0
+    max-width: 60%
     fieldset
+      background: $basic-white
       border: 2px solid $border-form
       border-radius: 10px
       display: flex
       flex-direction: column
       padding: 20px
       label
-        font-size: 18px
+        font-size: $main-text
         text-align: left
         line-height: 19px
         font-weight: 400
@@ -91,7 +96,7 @@ export default {
         max-width: 50%
     button
       margin-top: 30px
-      font-size: 18px
+      font-size: $main-text
       &:disabled
         background-color: $disabled-button
         color: $basic-white

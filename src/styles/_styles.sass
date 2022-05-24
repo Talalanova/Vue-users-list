@@ -1,23 +1,29 @@
 @import '@/styles/_variables.sass'
 // @import '@/styles/_reset.sass'
 
-.list-clean
+//MIXINS
+@mixin list-clean 
     margin: 0
     padding: 0
-    list-style: none
+    list-style: none    
+
+@mixin link-clean 
+    text-decoration: none
+
+//CURRENT CLASSES
 .current-button
     color: $basic-white
-    background-color: $accent
+    background-color: $main
     padding: 6px 12px
     border-radius: 5px
     text-align: center
-    border: 1px solid $accent
+    border: 1px solid $main
     font-size: 14px
     cursor: pointer
     transition: 0.3s
     &:hover
         background-color: $basic-white
-        color: $accent
+        color: $text
 .overlay 
     position: fixed
     width: 100%
@@ -34,4 +40,4 @@ h1
     margin: 10px 0
     font-size: 24px
     line-height: 25px
-    color: $accent
+    color: $text

@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <Sidemenu></Sidemenu>
+    <AppHeader></AppHeader>
     <main class="main">
       <router-view/>
     </main>
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import Sidemenu from '@/components/Sidemenu.vue'
+import AppHeader from '@/components/AppHeader.vue'
 
 export default {
   name: "",
   components: {
-    Sidemenu,
+    AppHeader,
   },
   props: {
     
@@ -25,6 +25,7 @@ export default {
 
 html
   height: 100%
+  background-color: $main-background
 
 #app 
   height: 100%
@@ -34,14 +35,12 @@ body
   min-width: 320px
   max-width: 1660px
   height: 100%
-  font-family: "Tahoma", "Arial", sans-serif
+  font-family: "Roboto", "Arial", sans-serif
 
 .wrapper 
-  display: grid
-  grid-template-columns: 20% auto
   width: 100%
   height: 100%
 
 .main
-  padding: 60px 40px
+  padding: 4rem
 </style>

@@ -6,7 +6,7 @@
     </div>    
     <Preloader v-if="!usersDownloaded"></Preloader>
     <Error v-if="error"></Error>
-    <ul class="users__list list-clean" v-for="user in users" :key="user.index">
+    <ul class="users__list" v-for="user in users" :key="user.index">
       <li class="users__item card">
         <div class="card__text">
           <p>
@@ -80,25 +80,31 @@ export default {
 .users__top-bar
   display: flex
   justify-content: space-between
+  align-items: center
+.users__list
+  @include list-clean
 .card
   display: flex
   flex-direction: row
   justify-content: space-between
   align-items: end
-  background-color: $card-background
+  background-color: $basic-white
   border-radius: 10px
   padding: 20px 30px
-  font-size: 18px
+  font-size: $main-text
   line-height: 19px
   margin: 20px 0
+  -webkit-box-shadow: -1px 0px 16px -2px rgba(34, 60, 80, 0.2)
+  -moz-box-shadow: -1px 0px 16px -2px rgba(34, 60, 80, 0.2)
+  box-shadow: -1px 0px 16px -2px rgba(34, 60, 80, 0.2)
   p
     color: #333
     .card__field
       color: $card-field
       margin-right: 10px
   .card__link
-    color: $accent
+    color: $text
     text-decoration: none
     &:hover
-      color: $accent--hover
+      color: $main
 </style>
