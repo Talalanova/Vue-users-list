@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Map ref="map" :array="addresses" :content="user"></Map>
+    <Map ref="map" :array="addresses"></Map>
     <section class="users">
       <div class="users__top-bar">
         <h1>Список пользователей</h1>
@@ -15,7 +15,7 @@
               <span class="card__field">Ф.И.О:</span><span>{{ user.name }}</span>
             </p>
             <p>
-              <span class="card__field">Город:</span><span>{{ user.address.city }}</span>
+              <span class="card__field">Город:</span><span>{{ user.city }}</span>
             </p>
             <p>
               <span class="card__field">Компания:</span><span>{{ user.company }}</span>
@@ -24,6 +24,12 @@
           <router-link class="card__link" :to="'/edit-user/' + user.id">Подробнее</router-link>
         </li>
       </ul>
+      <template ref="popup">
+        <div class="popup__content">
+          <p>Hi there!I am <span class="popup__name"><br></span></p>
+          <p>Contact me: <span class="popup__email"></span></p>
+        </div>
+      </template>
     </section>
   </div>
 </template>
@@ -46,9 +52,8 @@ export default {
     return {
       users: [],
       usersDownloaded: false,
-      error: false,
-      addresses: [],
-      user: 'fhdgh'
+      error: false,      
+      user: ''
     }
   },
   methods: {
@@ -60,23 +65,34 @@ export default {
           }
           throw new Error('Network response was not ok');
         })
-        .then((json) => {          
+        .then((json) => {
+          console.log(json)      
           this.users = json.map(item => {
             return {
               name : item.name,              
               company: item.company.name,
               id: item.id,
-              address: item.address
-            }
-          })
-          this.usersDownloaded = true
-          this.addresses = this.users.map(item => {
-            return {
+              city: item.address.city,
+              website: item.website,
+              email: item.email,
               lat: item.address.geo.lat,
               lng: item.address.geo.lng
             }
           })
-          this.$refs.map.renderMarkers(this.addresses);
+          this.usersDownloaded = true
+
+          const templateFragment = this.$refs.popup         
+          const template = templateFragment.querySelector('.popup__content');
+          
+          const getTemplate = (item) => {
+            const popup = template.cloneNode(true);
+            const name = popup.querySelector('.popup__name')
+            name.textContent = item.name
+            const email = popup.querySelector('.popup__email')
+            email.textContent = item.email
+            return popup;
+          }
+          this.$refs.map.renderMarkers(this.users,getTemplate);
         })
         .catch(() => {
           this.error = true

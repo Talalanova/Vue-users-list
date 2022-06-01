@@ -27,7 +27,6 @@ export default {
     },
     props: {
         array: Array,
-        content: String
     },
     mounted() {        
         this.initMap();
@@ -46,16 +45,18 @@ export default {
                 );
                 this.tileLayer.addTo(this.map);
             },
-        renderMarkers(items) {
+        renderMarkers(items,template) {
             let markers = L.layerGroup();
+            
             items.forEach(item => {
                 let lat = item.lat;
-                let lng = item.lng;
-                let marker = L.marker({lat,lng}).bindPopup(this.content);
+                let lng = item.lng;                
+                let marker = L.marker({lat,lng}).bindPopup(template(item));
                 markers.addLayer(marker);
             });
             this.map.addLayer(markers);
         },
+
     },
 }
 </script>
