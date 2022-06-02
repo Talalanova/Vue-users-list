@@ -26,7 +26,7 @@ export default {
         }
     },
     props: {
-        array: Array,
+        
     },
     mounted() {        
         this.initMap();
@@ -46,8 +46,7 @@ export default {
                 this.tileLayer.addTo(this.map);
             },
         renderMarkers(items,template) {
-            let markers = L.layerGroup();
-            
+            let markers = L.layerGroup();            
             items.forEach(item => {
                 let lat = item.lat;
                 let lng = item.lng;                

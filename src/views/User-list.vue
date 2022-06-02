@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Map ref="map" :array="addresses"></Map>
+    <Map ref="map"></Map>
     <section class="users">
       <div class="users__top-bar">
         <h1>Список пользователей</h1>
@@ -26,8 +26,9 @@
       </ul>
       <template ref="popup">
         <div class="popup__content">
+          <img class="popup__img" width="150" src="@/assets/person(1).jpg" alt=""/>
           <p>Hi there!I am <span class="popup__name"><br></span></p>
-          <p>Contact me: <span class="popup__email"></span></p>
+          <p>Contact me: <a href="" class="popup__email"></a></p>
         </div>
       </template>
     </section>
@@ -57,6 +58,20 @@ export default {
     }
   },
   methods: {
+    getTemplate(item) {
+      const templateFragment = this.$refs.popup         
+      const template = templateFragment.querySelector('.popup__content');     
+      
+      const popup = template.cloneNode(true);
+      const name = popup.querySelector('.popup__name')
+      name.textContent = item.name
+      const email = popup.querySelector('.popup__email')
+      email.textContent = item.email
+      email.href = 'mailto:' + item.email
+      const img = popup.querySelector('.popup__img')
+      img.src = item.img
+      return popup;
+    },
     loadUsers() {
       fetch('https://jsonplaceholder.typicode.com/users?offset=0&limit=10')
         .then((response) => {
@@ -76,23 +91,12 @@ export default {
               website: item.website,
               email: item.email,
               lat: item.address.geo.lat,
-              lng: item.address.geo.lng
+              lng: item.address.geo.lng,
+              img: require('@/assets/person(1).jpg')
             }
           })
           this.usersDownloaded = true
-
-          const templateFragment = this.$refs.popup         
-          const template = templateFragment.querySelector('.popup__content');
-          
-          const getTemplate = (item) => {
-            const popup = template.cloneNode(true);
-            const name = popup.querySelector('.popup__name')
-            name.textContent = item.name
-            const email = popup.querySelector('.popup__email')
-            email.textContent = item.email
-            return popup;
-          }
-          this.$refs.map.renderMarkers(this.users,getTemplate);
+          this.$refs.map.renderMarkers(this.users,this.getTemplate);
         })
         .catch(() => {
           this.error = true
