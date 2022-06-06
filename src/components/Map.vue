@@ -65,4 +65,5 @@ export default {
     cursor: pointer
     width: 100%
     height: 500px
+    z-index: 1
 </style>
