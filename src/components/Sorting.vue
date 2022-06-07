@@ -1,7 +1,7 @@
 <template>
     <div class="sorting">        
-        <button @click="sort(arr,city)" class="current-button">По городу</button>
-        <button @click="sort(arr,company)" class="current-button">По компании</button>
+        <button @click="sort(arr,city)" class="current-button">By city</button>
+        <button @click="sort(arr,company)" class="current-button">By organization</button>
     </div>
 </template>
 
@@ -28,6 +28,8 @@ export default {
     text-align: center
     column-gap: 5px
     position: relative
+    padding: 0 0 0 30px
+    margin-left: auto
     &::before
         position: absolute
         width: 20px
@@ -35,7 +37,7 @@ export default {
         content: ""
         background-image: url('~@/assets/sort_icon.svg')
         background-repeat: no-repeat
-        left: -30px
+        left: 0
         top: 5px
         background-size: contain
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="edit-user">
     <div class="edit-user__top-bar">
-      <h1>Профиль пользователя</h1>
-      <button class="current-button" @click="formDisabled = false">Редактировать</button>
+      <h1>User`s profile</h1>
+      <button class="current-button" @click="formDisabled = false">Edit</button>
     </div>    
     <form>
       <fieldset :disabled="formDisabled">
@@ -25,7 +25,7 @@
         <label for="comment">Comment</label>
         <textarea id="comment"></textarea>
       </fieldset>
-      <button :disabled="formDisabled" type="button" class="current-button" @click="saveChanges()">Отправить</button>
+      <button :disabled="formDisabled" type="button" class="current-button" @click="saveChanges()">Save</button>
     </form>
   </div>
 </template>
@@ -70,8 +70,9 @@ export default {
   .edit-user__top-bar
     display: flex
     justify-content: space-between
+    align-items: center
     button
-      font-size: 19px
+      font-size: 19px      
   form
     padding: 30px 0
     max-width: 60%

@@ -14,7 +14,7 @@
             <img
               @click="openFullPic"
               class="card__img"
-              width="150"
+              width="120"
               :src="user.img"
               alt=""
             />
@@ -39,7 +39,12 @@
       </ul>
       <div v-if="zoom" class="zoom">
         <div class="overlay" @click.self="zoom = !zoom">
-          <img class="zoom__img" width="450" :src="full_pic" alt="" />
+          <div class="zoom__container">
+            <a class="zoom__button" @click.prevent="zoom = !zoom" role="button" aria-label="Close full photo" href="">
+              <span aria-hidden="true"></span>
+            </a>          
+            <img class="zoom__img" width="450" :src="full_pic" alt="" />
+          </div>
         </div>
       </div>
       <template ref="popup">
@@ -139,26 +144,41 @@
 .users__top-bar
   display: flex
   justify-content: space-between
-  align-items: center
+  align-items: start
+  flex-direction: column
+  @media screen and (min-width: 1000px)
+    flex-direction: row
+    align-items: center
 .users__list
   @include list-clean
-  display: grid
-  grid-template-columns: 1fr 1fr
-  column-gap: 5%
+  @media screen and (min-width: 1000px)
+    display: grid
+    grid-template-columns: 1fr 1fr
+    column-gap: 5%
 .card
-  display: grid
-  grid-template-columns: 150px auto
+  display: grid  
   column-gap: 5%
   align-items: flex-start
   background-color: $basic-white
   border-radius: 10px
-  padding: 20px 30px
-  font-size: $main-text
+  padding: 20px 20px 10px 
+  font-size: $main-text--mobile
   line-height: 19px
   margin: 20px 0
   -webkit-box-shadow: -1px 0px 16px -2px rgba(34, 60, 80, 0.2)
   -moz-box-shadow: -1px 0px 16px -2px rgba(34, 60, 80, 0.2)
   box-shadow: -1px 0px 16px -2px rgba(34, 60, 80, 0.2)
+  @media screen and (min-width: 430px)
+    grid-template-columns: 120px auto
+  @media screen and (min-width: 1000px)
+    grid-template-columns: 150px auto
+    padding: 30px 30px 20px
+    font-size: $main-text
+  .card__img
+    margin: 0 0 20px
+    @media screen and (min-width: 1000px)
+      width: 150px
+      margin: 0
   p
     color: #333
     margin: 0 0 1rem 0
@@ -203,7 +223,39 @@
     margin: 0 auto
 
 .zoom
-  .zoom__img
+  .zoom__container
     margin: 10% auto
     display: block
+    position: relative
+    max-width: fit-content
+    .zoom__img
+      margin: 0 auto
+      display: block
+      -webkit-box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.2)
+      -moz-box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.2)
+      box-shadow: 0px 0px 0px 17px rgba(255, 255, 255, 0.2)
+    .zoom__button
+      position: absolute
+      top: -45px
+      right: -30px
+      span
+        position: relative
+        &::after
+          position: absolute
+          content: ""
+          width: 5px
+          height: 25px
+          transform: rotate(45deg)
+          background-color: $card-background
+        &::before
+          position: absolute
+          content: ""
+          width: 5px
+          height: 25px
+          transform: rotate(-45deg)
+          background-color: $card-background
+        &:hover
+          &::after,
+          &::before         
+            background-color: $main
 </style>

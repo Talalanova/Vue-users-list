@@ -64,6 +64,8 @@ export default {
 #mapContainer
     cursor: pointer
     width: 100%
-    height: 500px
+    height: 250px
     z-index: 1
+    @media screen and (min-width: 1000px)
+        height: 500px
 </style>

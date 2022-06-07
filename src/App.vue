@@ -42,5 +42,7 @@ body
   height: 100%
 
 .main
-  padding: 4rem
+  padding: 1rem
+  @media screen and (min-width: 1000px)
+    padding: 4rem
 </style>
