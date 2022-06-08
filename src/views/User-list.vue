@@ -10,9 +10,8 @@
       <Error v-if="error"></Error>
       <ul class="users__list">
         <li v-for="user in users" :key="user.index" class="users__item card">
-          <div class="img-wrapper">
-            <img
-              @click="openFullPic"
+          <div class="img-wrapper" :data-src="user.img" @click="openFullPic">
+            <img              
               class="card__img"
               width="120"
               :src="user.img"
@@ -130,8 +129,8 @@
           });
       },
       openFullPic() {
-        this.zoom = true;
-        this.full_pic = event.target.src;
+        this.zoom = true;       
+        this.full_pic = event.currentTarget.getAttribute('data-src');        
       },
     },
     mounted() {

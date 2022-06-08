@@ -1,8 +1,7 @@
 <template>
   <div class="edit-user">
     <div class="edit-user__top-bar">
-      <h1>User`s profile</h1>
-      <button class="current-button" @click="formDisabled = false">Edit</button>
+      <h1>User`s profile</h1>      
     </div>    
     <form>
       <fieldset :disabled="formDisabled">
@@ -13,11 +12,11 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="" :value="user.email"/>
         <label for="street">Street</label>
-        <input type="text" id="street" name="street" placeholder="" :value="user.address.street"/>
+        <input type="text" id="street" name="street" placeholder="" :value="user.street"/>
         <label for="city">City</label>
-        <input type="text" id="city" name="city" placeholder="" :value="user.address.city" />
+        <input type="text" id="city" name="city" placeholder="" :value="user.city" />
         <label for="code">Zip code</label>
-        <input type="text" id="code" name="code" placeholder="" :value="user.address.zipcode"/>
+        <input type="text" id="code" name="code" placeholder="" :value="user.zipcode"/>
         <label for="phone">Phone</label>
         <input type="tel" id="phone" name="phone" placeholder="" :value="user.phone"/>
         <label for="website">Website</label>
@@ -25,17 +24,24 @@
         <label for="comment">Comment</label>
         <textarea id="comment"></textarea>
       </fieldset>
+      <button class="current-button" @click="formDisabled = false">Edit</button>
       <button :disabled="formDisabled" type="button" class="current-button" @click="saveChanges()">Save</button>
     </form>
+    <Comments :comments="this.comments" :src="user.img"></Comments>
   </div>
 </template>
 
 <script>
+import Comments from "@/components/Comments.vue";
 export default {
+  components :{
+    Comments
+  },
   data() {
     return {
       user: {},
       formDisabled: true,
+      comments: []
     }
   },
   methods: {
@@ -47,9 +53,23 @@ export default {
           }
           throw new Error('Network response was not ok');
         })
-        .then((json) => {
-          this.user = json[0]
-          console.log(this.user)
+        .then((json) => {          
+          this.user = json.map((item) => {
+            return {
+              name: item.name,
+              username: item.username,
+              company: item.company.name,
+              id: item.id,
+              city: item.address.city,
+              street: item.address.street,
+              zipcode: item.address.zipcode,
+              website: item.website,
+              email: item.email,
+              phone: item.phone,
+              img: require(`@/assets/person(` + this.$route.params.id + `).jpg`),
+            };
+          });
+          this.user = this.user[0]
         })
         .catch(() => {
           this.error = true
@@ -57,25 +77,52 @@ export default {
     },
     saveChanges() {
       
+    },
+    loadComments(){
+      fetch('https://reqres.in/api/users?page=1')
+        .then((response) => {
+          if (response.ok) {
+            return response.json()
+          }
+          throw new Error('Network response was not ok');
+        })
+        .then((json) => {          
+          this.comments = json.data.map((item) => {
+            return {
+              id: item.id,
+              name: item.first_name + ' ' + item.last_name,
+              email: item.email,
+              avatar: item.avatar,
+              text: 'Some comment text',
+            };
+          });
+        })
+        .catch(() => {
+          this.error = true
+        });      
     }
   },
   beforeMount() {
     this.loadUser();
+    this.loadComments()
   }
 }
 </script>
 
 <style lang="sass">
 .edit-user
+  display: grid
+  grid-template-columns: 1fr 1fr
+  column-gap: 3%
   .edit-user__top-bar
     display: flex
     justify-content: space-between
     align-items: center
+    grid-column: 1 / -1
     button
       font-size: 19px      
   form
     padding: 30px 0
-    max-width: 60%
     fieldset
       background: $basic-white
       border: 2px solid $border-form

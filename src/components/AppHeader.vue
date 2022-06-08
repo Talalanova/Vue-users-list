@@ -1,17 +1,14 @@
 <template>
   <header class="header">
-    <router-link to="/" class="logo">
+    <span class="logo">
       <img src="@/assets/logo.svg" alt="" width="50">
+    </span>
+    <!-- <router-link to="/" >
+      Employees
     </router-link>
-    <router-link to="/" >
-      Сотрудники
-    </router-link>
-    <router-link to="/companys" >
-      Компании
-    </router-link>
-    <router-link to="/" >
-      
-    </router-link>
+    <router-link to="/companies" >
+      Companies
+    </router-link> -->
   </header>
 </template>
 
