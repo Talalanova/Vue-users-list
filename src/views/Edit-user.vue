@@ -1,7 +1,9 @@
 <template>
   <div class="edit-user">
+      <Preloader v-if="!userDownloaded"></Preloader>
+      <Error v-if="error"></Error> 
     <div class="edit-user__top-bar">
-      <h1>User`s profile</h1>      
+      <h1>User`s profile</h1>     
     </div>    
     <form>
       <fieldset :disabled="formDisabled">
@@ -24,7 +26,7 @@
         <label for="comment">Comment</label>
         <textarea id="comment"></textarea>
       </fieldset>
-      <button class="current-button" @click="formDisabled = false">Edit</button>
+      <button class="current-button" @click.prevent="formDisabled = false">Edit</button>
       <button :disabled="formDisabled" type="button" class="current-button" @click="saveChanges()">Save</button>
     </form>
     <Comments :comments="this.comments" :src="user.img"></Comments>
@@ -32,16 +34,22 @@
 </template>
 
 <script>
+import Preloader from "@/components/Preloader.vue";
 import Comments from "@/components/Comments.vue";
+import Error from "@/components/Error.vue";
 export default {
   components :{
-    Comments
+    Comments,
+    Error,
+    Preloader
   },
   data() {
     return {
       user: {},
       formDisabled: true,
-      comments: []
+      comments: [],
+      userDownloaded: false,
+      error: false,
     }
   },
   methods: {
@@ -49,11 +57,13 @@ export default {
       fetch('https://jsonplaceholder.typicode.com/users?id=' + this.$route.params.id)
         .then((response) => {
           if (response.ok) {
-            return response.json()
+            return response.json();
+            
           }
           throw new Error('Network response was not ok');
         })
-        .then((json) => {          
+        .then((json) => { 
+          this.userDownloaded = true;         
           this.user = json.map((item) => {
             return {
               name: item.name,
@@ -68,7 +78,7 @@ export default {
               phone: item.phone,
               img: require(`@/assets/person(` + this.$route.params.id + `).jpg`),
             };
-          });
+          });          
           this.user = this.user[0]
         })
         .catch(() => {
@@ -112,8 +122,9 @@ export default {
 <style lang="sass">
 .edit-user
   display: grid
-  grid-template-columns: 1fr 1fr
-  column-gap: 3%
+  @media screen and (min-width: 1000px)
+    grid-template-columns: 1fr 1fr
+    column-gap: 3%
   .edit-user__top-bar
     display: flex
     justify-content: space-between
@@ -130,6 +141,7 @@ export default {
       display: flex
       flex-direction: column
       padding: 20px
+      box-sizing: border-box
       label
         font-size: $main-text
         text-align: left
@@ -141,10 +153,12 @@ export default {
         padding: 10px 
         border-radius: 10px
       input
-        max-width: 50%
+        @media screen and (min-width: 1000px)
+          max-width: 50%
     button
       margin-top: 30px
       font-size: $main-text
+      margin-right: 5%
       &:disabled
         background-color: $disabled-button
         color: $basic-white

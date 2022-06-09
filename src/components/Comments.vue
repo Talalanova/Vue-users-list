@@ -1,7 +1,7 @@
 <template>
     <div class="reviews">
         <div class="img-wrapper">
-            <img :src="src" width="300"/>
+            <img :src="src" width="150"/>
         </div>
         <div class="reviews__comment comment">
             <ul class="comment__list">
@@ -31,33 +31,41 @@ export default {
     img
         border-radius: 50%
         border: 2px solid $basic-white
+        background-color: $basic-white
+        @media screen and (min-width: 1000px)
+            width: 300px
     .img-wrapper
         position: relative
         max-width: fit-content        
         &::before
             position: absolute
             content: ""
-            width: 220px
-            height: 220px
+            width: 110px
+            height: 110px
             background-color: $main
             border-radius: 50%
             bottom: 10px
             right: -35px
             z-index: -1
             border: 2px solid $basic-white
+            @media screen and (min-width: 1000px)
+                width: 220px
+                height: 220px
         &::after            
             position: absolute
             content: ""
-            width: 40px
-            height: 40px
+            width: 20px
+            height: 20px
             background-color: $decoration
             border-radius: 50%
-            bottom: 200px
+            bottom: 80%
             right: -60px
             z-index: -1
             border: 2px solid $basic-white
+            @media screen and (min-width: 1000px)
+                width: 40px
+                height: 40px
 .reviews__comment
-
     .comment__list
         @include list-clean
         .comment__item
