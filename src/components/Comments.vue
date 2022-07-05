@@ -20,14 +20,19 @@ export default {
     name: 'Comments',
     props: {
         comments : Array,
-        src: String
-    }
+        src: String,
+    },
+    data(){
+        return {
+
+        }
+    },
 }
 </script>
 
 <style lang="sass">
 .reviews
-    padding: 30px 0
+    padding: 30px 0 0
     img
         border-radius: 50%
         border: 2px solid $basic-white
