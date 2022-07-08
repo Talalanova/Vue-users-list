@@ -3,35 +3,34 @@
     <Map ref="map"></Map>
     <section class="users">
       <div class="users__top-bar">
-        <h1>Employee profiles</h1>
+        <h1 class="main-h1">Employee profiles</h1>
         <Sorting :arr="users" :city="'city'" :company="'company'"></Sorting>
       </div>
       <Preloader v-if="!usersDownloaded"></Preloader>
       <Error v-if="error"></Error>
       <ul class="users__list">
-        <li v-for="user in users" :key="user.index" class="users__item card">
+        <li v-for="user in users" :key="user.index" class="user-card">
           <div class="img-wrapper" :data-src="user.img" @click="openFullPic">
-            <img              
-              class="card__img"
+            <img
               width="120"
               :src="user.img"
               alt=""
             />
           </div>
-          <div class="card__text">
+          <div class="user-card__text">
             <p>
-              <span class="card__field">Full name:</span
+              <span class="user-card__field">Full name:</span
               ><span>{{ user.name }}</span>
             </p>
             <p>
-              <span class="card__field">City:</span><span>{{ user.city }}</span>
+              <span class="user-card__field">City:</span><span>{{ user.city }}</span>
             </p>
             <p>
-              <span class="card__field">Company:</span
+              <span class="user-card__field">Company:</span
               ><span>{{ user.company }}</span>
             </p>
           </div>
-          <router-link class="card__link" :to="'/edit-user/' + user.id"
+          <router-link class="user-card__link" :to="'/edit-user/' + user.id"
             >Detail</router-link
           >
         </li>
@@ -140,21 +139,25 @@
 </script>
 
 <style lang="sass">
-.users__top-bar
-  display: flex
-  justify-content: space-between
-  align-items: start
-  flex-direction: column
-  @media screen and (min-width: 1000px)
-    flex-direction: row
-    align-items: center
-.users__list
-  @include list-clean
-  @media screen and (min-width: 1000px)
-    display: grid
-    grid-template-columns: 1fr 1fr
-    column-gap: 5%
-.card
+.users
+  max-width: 1150px
+  margin: 0 auto
+  .users__top-bar
+    display: flex
+    justify-content: space-between
+    align-items: start
+    flex-direction: column
+    margin: 20px 0
+    @media screen and (min-width: 1000px)
+      flex-direction: row
+      align-items: center
+  .users__list
+    @include list-clean
+    @media screen and (min-width: 1000px)
+      display: grid
+      grid-template-columns: 1fr 1fr
+      column-gap: 5%
+.user-card
   display: grid  
   column-gap: 5%
   align-items: flex-start
@@ -173,7 +176,7 @@
     grid-template-columns: 150px auto
     padding: 30px 30px 20px
     font-size: $main-text
-  .card__img
+  img
     margin: 0 0 20px
     @media screen and (min-width: 1000px)
       width: 150px
@@ -181,7 +184,7 @@
   p
     color: #333
     margin: 0 0 1rem 0
-    .card__field
+    .user-card__field
       color: $card-field
       margin-right: 10px
   .img-wrapper
@@ -202,8 +205,7 @@
         bottom: 0
         left: 0
         right: 0
-
-  .card__link
+  .user-card__link
     color: $text
     text-decoration: none
     grid-column: 1 / -1

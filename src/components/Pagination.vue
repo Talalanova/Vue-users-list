@@ -40,12 +40,14 @@ export default {
   justify-content: center
   button
     border: none
-    color: $text
+    color: $main
     background: none
     margin: 0 5px
     cursor: pointer
     font-size: $main-text
     &:hover
-        color: $main
+      color: $decoration
+  .active
+    text-decoration: underline
 </style>
 

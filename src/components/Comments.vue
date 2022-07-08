@@ -38,7 +38,7 @@ export default {
         border: 2px solid $basic-white
         background-color: $basic-white
         @media screen and (min-width: 1000px)
-            width: 300px
+            width: 220px
     .img-wrapper
         position: relative
         max-width: fit-content        

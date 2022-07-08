@@ -4,7 +4,7 @@
     <Error v-if="error" @click="error = !error"></Error>
     <Success v-if="success" :message="successMessage" @click="success = !success"></Success>
     <div class="edit-user__top-bar">
-      <h1>User`s profile</h1>
+      <h1 class="main-h1">User`s profile</h1>
     </div>
     <form name="user">
       <fieldset :disabled="formDisabled">
@@ -221,6 +221,7 @@
 <style lang="sass">
 .edit-user
   display: grid
+  padding: 40px 0
   @media screen and (min-width: 1000px)
     grid-template-columns: 1fr 1fr
     column-gap: 3%

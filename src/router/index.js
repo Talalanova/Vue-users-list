@@ -13,9 +13,9 @@ const routes = [
     component: () => import('../views/Edit-user.vue')
   },
   {
-    path: '/companies',
-    name: 'Companies',
-    component: () => import('../views/Companies.vue')
+    path: '/analytics',
+    name: 'Analytics',
+    component: () => import('../views/Analytics.vue')
   }
 ]
 

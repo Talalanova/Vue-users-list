@@ -22,20 +22,20 @@
 <style lang="sass">
 
 .success
-    p
-        color: $basic-white
-        text-align: center
-        font-size: 2.2rem
-    img
-        margin: 15% auto 0
-        display: block
-    span
-        color: $basic-white
-        text-align: center
-        font-size: 1.2rem
-        display: block
-        img
-            margin: 0
-            display: inline-block
+  p
+    color: $basic-white
+    text-align: center
+    font-size: 2.2rem
+  img
+    margin: 15% auto 0
+    display: block
+  span
+      color: $basic-white
+      text-align: center
+      font-size: 1.2rem
+      display: block
+      img
+        margin: 0
+        display: inline-block
 
 </style>

@@ -30,19 +30,17 @@ html
 #app 
   height: 100%
 
-body 
-  margin: 0 auto
-  min-width: 320px
-  max-width: 1660px
+body
   height: 100%
   font-family: "Roboto", "Arial", sans-serif
 
 .wrapper 
-  width: 100%
-  height: 100%
+  margin: 0 auto
+  min-width: 320px
+  max-width: 1440px
 
 .main
-  padding: 1rem
+  padding: 0 1rem
   @media screen and (min-width: 1000px)
-    padding: 4rem
+    padding: 0 4rem
 </style>
